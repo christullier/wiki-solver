@@ -22,11 +22,11 @@ def urlName(article_url):
 # output from the wiki api is going to be in .json format
 # input needs to be the URL form of the link
 def pageViews(article_name):
-	view_api = "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/all-agents/" + article_name + "/monthly/20150101/20161201"
+	view_api = "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/all-agents/" + article_name + "/monthly/20210101/20210401"
 	print(view_api)
 	getJsonData(view_api)
 
-# pulls JSON information and returns the number of views that page has
+# opens json file and gets the number of views
 def jsonToViews(api_link):
     pass
 
@@ -34,15 +34,20 @@ def jsonToViews(api_link):
 # name json file after the wikipedia page maybe?
 def getJsonData(link):
 	with urllib.request.urlopen(link) as url: data = json.loads(url.read().decode())
-	with open('jout.json', 'w') as outfile: json.dump(data, outfile)
+	with open('jout.json', 'w') as outfile: json.dump(data, outfile, indent=4)
 	# print(data)
 	# return data
 
 
+def openJ(filename):
+	with open(filename) as json_file:
+		data = json.load(json_file)
+		for i in data['items']:
+			print('views: {}'.format(i['views']))
+			
 
-
-def toFile(fileName, text):
-	f = open(fileName, "w")
+def toFile(filename, text):
+	f = open(filename, "w")
 	f.write(text)
 	f.close()
 
@@ -50,6 +55,9 @@ pageTitle(url)
 pageTitle(url2)
 
 pageViews(urlName(url2))
+
+
+openJ('jout.json')
 
 """
 f = open("output.txt", "w+")

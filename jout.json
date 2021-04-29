@@ -4,154 +4,28 @@
             "project": "en.wikipedia",
             "article": "Avengers",
             "granularity": "monthly",
-            "timestamp": "2015070100",
+            "timestamp": "2021010100",
             "access": "all-access",
             "agent": "all-agents",
-            "views": 14078
+            "views": 4613
         },
         {
             "project": "en.wikipedia",
             "article": "Avengers",
             "granularity": "monthly",
-            "timestamp": "2015080100",
+            "timestamp": "2021020100",
             "access": "all-access",
             "agent": "all-agents",
-            "views": 12141
+            "views": 5051
         },
         {
             "project": "en.wikipedia",
             "article": "Avengers",
             "granularity": "monthly",
-            "timestamp": "2015090100",
+            "timestamp": "2021030100",
             "access": "all-access",
             "agent": "all-agents",
-            "views": 11151
-        },
-        {
-            "project": "en.wikipedia",
-            "article": "Avengers",
-            "granularity": "monthly",
-            "timestamp": "2015100100",
-            "access": "all-access",
-            "agent": "all-agents",
-            "views": 10368
-        },
-        {
-            "project": "en.wikipedia",
-            "article": "Avengers",
-            "granularity": "monthly",
-            "timestamp": "2015110100",
-            "access": "all-access",
-            "agent": "all-agents",
-            "views": 8844
-        },
-        {
-            "project": "en.wikipedia",
-            "article": "Avengers",
-            "granularity": "monthly",
-            "timestamp": "2015120100",
-            "access": "all-access",
-            "agent": "all-agents",
-            "views": 9867
-        },
-        {
-            "project": "en.wikipedia",
-            "article": "Avengers",
-            "granularity": "monthly",
-            "timestamp": "2016010100",
-            "access": "all-access",
-            "agent": "all-agents",
-            "views": 10681
-        },
-        {
-            "project": "en.wikipedia",
-            "article": "Avengers",
-            "granularity": "monthly",
-            "timestamp": "2016020100",
-            "access": "all-access",
-            "agent": "all-agents",
-            "views": 9320
-        },
-        {
-            "project": "en.wikipedia",
-            "article": "Avengers",
-            "granularity": "monthly",
-            "timestamp": "2016030100",
-            "access": "all-access",
-            "agent": "all-agents",
-            "views": 10395
-        },
-        {
-            "project": "en.wikipedia",
-            "article": "Avengers",
-            "granularity": "monthly",
-            "timestamp": "2016040100",
-            "access": "all-access",
-            "agent": "all-agents",
-            "views": 10624
-        },
-        {
-            "project": "en.wikipedia",
-            "article": "Avengers",
-            "granularity": "monthly",
-            "timestamp": "2016050100",
-            "access": "all-access",
-            "agent": "all-agents",
-            "views": 15835
-        },
-        {
-            "project": "en.wikipedia",
-            "article": "Avengers",
-            "granularity": "monthly",
-            "timestamp": "2016060100",
-            "access": "all-access",
-            "agent": "all-agents",
-            "views": 7436
-        },
-        {
-            "project": "en.wikipedia",
-            "article": "Avengers",
-            "granularity": "monthly",
-            "timestamp": "2016070100",
-            "access": "all-access",
-            "agent": "all-agents",
-            "views": 6472
-        },
-        {
-            "project": "en.wikipedia",
-            "article": "Avengers",
-            "granularity": "monthly",
-            "timestamp": "2016080100",
-            "access": "all-access",
-            "agent": "all-agents",
-            "views": 6900
-        },
-        {
-            "project": "en.wikipedia",
-            "article": "Avengers",
-            "granularity": "monthly",
-            "timestamp": "2016090100",
-            "access": "all-access",
-            "agent": "all-agents",
-            "views": 5926
-        },
-        {
-            "project": "en.wikipedia",
-            "article": "Avengers",
-            "granularity": "monthly",
-            "timestamp": "2016100100",
-            "access": "all-access",
-            "agent": "all-agents",
-            "views": 5073
-        },
-        {
-            "project": "en.wikipedia",
-            "article": "Avengers",
-            "granularity": "monthly",
-            "timestamp": "2016110100",
-            "access": "all-access",
-            "agent": "all-agents",
-            "views": 4813
+            "views": 5576
         }
     ]
 }
