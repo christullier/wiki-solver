@@ -1,0 +1,5 @@
+get next article
+    - function that returns an object containing the next broad article
+
+set up article class with
+
