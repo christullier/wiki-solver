@@ -15,7 +15,7 @@ def url_to_title(article_url):
 	return title.string
 
 # gets the URL name for pageviews function
-def url_to_article_name(article_url):
+def title_from_url(article_url):
 	name = article_url.rsplit('/', 1)[-1]
 	return name
 
@@ -57,7 +57,7 @@ if __name__ == "__main__":
 	url_to_title(url)
 	url_to_title(url2)
 
-	article_views(url_to_article_name(url2))
+	article_views(title_from_url(url2))
 
 	openJ('jout.json')
 

@@ -1,0 +1,31 @@
+{
+    "items": [
+        {
+            "project": "en.wikipedia",
+            "article": "Harry_Potter",
+            "granularity": "monthly",
+            "timestamp": "2021010100",
+            "access": "all-access",
+            "agent": "all-agents",
+            "views": 417243
+        },
+        {
+            "project": "en.wikipedia",
+            "article": "Harry_Potter",
+            "granularity": "monthly",
+            "timestamp": "2021020100",
+            "access": "all-access",
+            "agent": "all-agents",
+            "views": 326652
+        },
+        {
+            "project": "en.wikipedia",
+            "article": "Harry_Potter",
+            "granularity": "monthly",
+            "timestamp": "2021030100",
+            "access": "all-access",
+            "agent": "all-agents",
+            "views": 361474
+        }
+    ]
+}
