@@ -1,3 +1,4 @@
+import wikipedia
 import requests, urllib.request
 from bs4 import BeautifulSoup
 import json
@@ -34,18 +35,13 @@ class Article():
 
     def _get_article_views(self, article_title):
         self.api_article_url = "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/all-agents/" + article_title + "/monthly/20210101/20210401"
-        self.open_json_data(self.api_article_url)
-        self._views_from_json('OOP_jout.json')
+        self.full_json_file = (self.api_article_url)
+        return self._views_from_json(self.full_json_file)
 
-    def open_json_data(self, api_url):
-        with urllib.request.urlopen(api_url) as url: data = json.loads(url.read().decode())
-        with open('OOP_jout.json', 'w') as outfile: json.dump(data, outfile, indent=4)
-
-    def _views_from_json(self, json_file_name):
-        with open(json_file_name) as json_file:
-            self.data = json.load(json_file)
-            for i in self.data['items']:
-                print('views: {}'.format(i['views']))
+    def _views_from_json(self, data):
+        self.my_data = json.load(data)
+        for i in self.my_data['items']:
+            print('views: {}'.format(i['views']))
 
     def _to_file(self, filename, text):
         self.f = open(filename, "w")

@@ -1,12 +1,18 @@
-import urllib, json
-url = "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/all-agents/foo/monthly/20150101/20161201"
+import wikipedia
+from mwviews.api import PageviewsClient
 
-response = urllib.urlopen(url)
+import pageviewapi
+# test
+# page = wikipedia.page("Avengers_(comics)")
+# print(page.links)
 
-data = json.loads(response.read())
-print data
+# page2 = wikipedia.page("Avengers: Endgame")
+# print(page2.title)
+
+p = PageviewsClient(user_agent = '<cdtv1473@gmail.com>, coding a program to connect two wiki pages')
+# p.article_views('es.wikipedia', ['Fideuà', 'Paella'])
+print(p.top_articles('de.wikivoyage', limit=10))
+# p.article_views('en.wikipedia', 'apple')
 
 
-f = open("jout.json", "w+")
-f.write(json.loads(response.read()))
-f.close()
+
