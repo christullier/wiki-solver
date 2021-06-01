@@ -15,14 +15,17 @@ class Article():
         self.parent = None
         self.child = None
 
+    #? may need an uplink function?
+    # links the parent to the child
+    def __call__(self, child):
+        self.child = child
+        child.parent = self
         # links on page
         # best link
 
         
         # parent (got here from parent)
         # child (next article)
-
-
 
     def _get_views(self):
         self.p = PageviewsClient(user_agent = '<cdtv1473@gmail.com>, coding a program to connect two wiki pages')
@@ -31,14 +34,14 @@ class Article():
         return sum(self.views_list[:-1])
 
 if __name__ == "__main__":
-    url = "https://en.wikipedia.org/wiki/Avengers_(comics)"
-    title = "Avengers:_Endgame"
+    start = "https://en.wikipedia.org/wiki/Avengers_(comics)"
+    end = "Harry_Potter"
 
-    a = Article(url)
+    a = Article(start)
     print("a_name: " + a.name)
     print("a_views: {}".format(a.views))
 
-    b = Article(title)
+    b = Article(end)
     print("b_name: " + b.name)
     print("b_views: {}".format(b.views))
 
