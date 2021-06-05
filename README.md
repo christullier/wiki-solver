@@ -1,11 +1,17 @@
-wikipedia crawler to solve the wikipedia game
+# Wiki-Crawler
+## What's the Wikipedia Game?
+### Get Set:
+* Obtain two random wiki articles
+* Designate one as the start, and the other as the end
 
-pull all links and find most popular from each page
+### Play:
+* Open the starting article
+* Look at all the hyperlinks on the page
+* Click the link you think will get you closest to the ending article
+* Repeat
 
-or 
 
-pull 10 random links and use most popular from there
-
-or
-
-find first link with > X popularity
+### Rules:
+* Only use hyperlinks that are part of the article itself
+  * e.g. don't use the Catagories section at the bottom of the page
+* 
