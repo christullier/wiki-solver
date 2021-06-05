@@ -1,6 +1,23 @@
 import wikipedia as w
 from mwviews.api import PageviewsClient
 from operator import itemgetter
+import time
+
+def timeit(method):
+    def timed(*args, **kw):
+        ts = time.time()
+        result = method(*args, **kw)
+        te = time.time()
+        if 'log_time' in kw:
+            name = kw.get('log_name', method.__name__.upper())
+            kw['log_time'][name] = int((te - ts) * 1000)
+        else:
+            print ('%r  %2.2f ms' % \
+                (method.__name__, (te - ts) * 1000))
+        return result
+    return timed
+
+
 
 # use getter and setters for the views function so
 # they 
@@ -15,7 +32,7 @@ class Article():
         self.views = self._get_views()
         self.parent = None
         self.child = None
-        self.links = None
+        self.links = self._get_links()
 
     #? may need an uplink function?
     # links the parent to the child
@@ -29,30 +46,38 @@ class Article():
         
         # parent (got here from parent)
         # child (next article)
+    @timeit
     def _get_links(self):
         links_temp = w.WikipediaPage(self.name).links
-        for i in range(len(links_temp)):
+        # for i in range(len(links_temp)):
+        for i in range(10):
             links_temp[i] = self._wiki_format_title(links_temp[i])
-        self.links = links_temp
-
-    def find_best_child(self):
-        self._get_links()
+        return links_temp
+    
+    @timeit
+    def find_best_child(self): 
         views_list = []
         for i in range(len(self.links)):
             views_list.append(Article(self.links[i]))
         return max(views_list)
         
     # need an exception for pages that don't exist
+    @timeit
     def _get_views(self):
         self.p = PageviewsClient(user_agent = '<cdtv1473@gmail.com>, coding a program to connect two wiki pages')
-        self.dict_list = self.p.article_views('en.wikipedia', self.name).values()
+        try:
+            self.dict_list = self.p.article_views('en.wikipedia', self.name).values()
+        except:
+            # sets broken links # of views to -1
+            self.dict_list = -1
+        
+        # Abomination (comics) breaks this for some reason - how'd it get a space?
         self.views_list = list(map(itemgetter(self.name), self.dict_list))
         return sum(filter(None, self.views_list[:-1]))
 
     # input a title w/ spaces and return it w/ spaces replaced with underscores
     def _wiki_format_title(self, article_title):
         return article_title.replace(" ", "_")
-
 
 
 if __name__ == "__main__":

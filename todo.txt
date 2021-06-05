@@ -3,3 +3,5 @@ get next article
 
 set up article class with
 
+
+use backlinks (from wiki api) to start from the bottom page and go up
