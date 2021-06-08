@@ -12,6 +12,6 @@
 
 
 ### Rules:
+* NO back button
 * Only use hyperlinks that are part of the article itself
   * e.g. don't use the Catagories section at the bottom of the page
-* 
