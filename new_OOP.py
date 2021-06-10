@@ -32,7 +32,7 @@ class Article():
         self.views = self._get_views()
         self.parent = None
         self.child = None
-        self.links = self._get_links()
+        self.links = self._get_links()[:5]
 
     #? may need an uplink function?
     # links the parent to the child
@@ -46,7 +46,7 @@ class Article():
         
         # parent (got here from parent)
         # child (next article)
-    @timeit
+    # @timeit
     def _get_links(self):
         links_temp = w.WikipediaPage(self.name).links
         # for i in range(len(links_temp)):
@@ -54,15 +54,19 @@ class Article():
             links_temp[i] = self._wiki_format_title(links_temp[i])
         return links_temp
     
-    @timeit
+    # @timeit
     def find_best_child(self): 
         views_list = []
         for i in range(len(self.links)):
-            views_list.append(Article(self.links[i]))
-        return max(views_list)
+            if self.name != self.links[i]:
+                views_list.append(Article(self.links[i]).views)
+        print("views_list: {}".format(views_list))
+        max_views = max(views_list)
+        index = views_list.index(max_views)
+        return self.links[index]
         
     # need an exception for pages that don't exist
-    @timeit
+    # @timeit
     def _get_views(self):
         self.p = PageviewsClient(user_agent = '<cdtv1473@gmail.com>, coding a program to connect two wiki pages')
         try:
