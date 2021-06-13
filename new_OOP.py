@@ -1,6 +1,7 @@
 import wikipedia as w
 from mwviews.api import PageviewsClient
 from operator import itemgetter
+import random
 import time
 
 def timeit(method):
@@ -18,7 +19,6 @@ def timeit(method):
     return timed
 
 
-
 # use getter and setters for the views function so
 # they 
 class Article():
@@ -32,6 +32,7 @@ class Article():
         self.views = self._get_views()
         self.parent = None
         self.child = None
+        # self.links = random.sample(self._get_links(), 5)
         self.links = self._get_links()[:5]
 
     #? may need an uplink function?
@@ -43,9 +44,11 @@ class Article():
         # best link
 
     # print function that goes along the chain
-        
-        # parent (got here from parent)
-        # child (next article)
+    
+    # input a title w/ spaces and return it w/ spaces replaced with underscores
+    def _wiki_format_title(self, article_title):
+        return article_title.replace(" ", "_")
+
     # @timeit
     def _get_links(self):
         links_temp = w.WikipediaPage(self.name).links
@@ -72,16 +75,15 @@ class Article():
         try:
             self.dict_list = self.p.article_views('en.wikipedia', self.name).values()
         except:
-            # sets broken links # of views to -1
-            self.dict_list = -1
+            # sets broken links # of views to 1 so it's ranked low, but not zero
+            self.dict_list = 0
         
         # Abomination (comics) breaks this for some reason - how'd it get a space?
-        self.views_list = list(map(itemgetter(self.name), self.dict_list))
+        self.views_list = list(map(itemgetter(self._wiki_format_title(self.name)), self.dict_list))
+
         return sum(filter(None, self.views_list[:-1]))
 
-    # input a title w/ spaces and return it w/ spaces replaced with underscores
-    def _wiki_format_title(self, article_title):
-        return article_title.replace(" ", "_")
+
 
 
 if __name__ == "__main__":
@@ -96,4 +98,5 @@ if __name__ == "__main__":
     b = Article(end)
     print("b_name: " + b.name)
     print("b_views: {}".format(b.views))
+    print("best_child: {}".format(b.find_best_child()))
 
