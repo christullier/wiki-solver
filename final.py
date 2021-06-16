@@ -1,5 +1,5 @@
-import json, requests
-
+import json, requests, random
+# random.seed(10)
 
 
 # make links become children as soon as they're made?
@@ -16,8 +16,22 @@ class Article():
         # list of links
         self.links = self._get_links(self.name)
 
-        # # of views
-        self.views = self._get_views(self.links[:5])
+        # gets # of views for self and children article in same call
+        self.random_links = random.sample(self.links, 10)
+        self.random_links.append(self.name)
+        self.views = None
+        self._get_views(self.random_links)
+
+    #? may need an uplink function?
+    # links the parent to the child
+    def __call__(self, child):
+        self.child = child
+        child.parent = self
+        # links on page
+        # best link
+
+    def _wiki_format(self, article_title):
+        return article_title.replace(" ", "_")
 
     def _get_links(self, article_name):
         sub_links = []
@@ -38,10 +52,24 @@ class Article():
             title = (page_object[page_id]['title'])
             print(title)
             sum = 0
-            for date in (page_object[page_id]['pageviews']):
-                daily_viewcount = page_object[page_id]['pageviews'][date]
-                sum += daily_viewcount
-            
+            try:
+                for date in (page_object[page_id]['pageviews']):
+                    try:
+                        daily_viewcount = page_object[page_id]['pageviews'][date]
+                        # in case there are no views
+                        if daily_viewcount == None:
+                            sum += 0
+                        else:
+                            sum += daily_viewcount
+                    except:
+                        print()
+                        print("view error")
+                        sum += 0
+            except:
+                print()
+                print("pageview error")
+            if self._wiki_format(title) == self.name:
+                self.views = sum
             print(sum)
 
 
@@ -49,12 +77,14 @@ class Article():
     # article_list can be a list of one
     # returns page_object to be looped over
     def _get_request(self, article_list):
+
         # from _get_list
         if type(article_list) == list:
             titles = "|".join(article_list)
             php = "https://en.wikipedia.org/w/api.php?action=query&prop=pageviews&format=json&titles=" + titles
-        # from _get_views
-        elif (type(article_list) == str):
+
+        # from _get_views, assume single string
+        else:
             title = article_list
             php="https://en.wikipedia.org/w/api.php?action=query&prop=links&pllimit=max&format=json&titles=" + title
         
