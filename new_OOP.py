@@ -3,6 +3,8 @@ from mwviews.api import PageviewsClient
 from operator import itemgetter
 import random
 import time
+import json
+
 
 def timeit(method):
     def timed(*args, **kw):
