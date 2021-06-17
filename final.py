@@ -1,6 +1,6 @@
-import json, requests, random
-# random.seed(10)
-DEBUG = False
+import json, requests, random, time
+random.seed(16)
+
 
 # make links become children as soon as they're made?
 # make sure that self.views is not None
@@ -17,7 +17,7 @@ class Article():
         self.links = self._get_links(self.name)
 
         # gets # of views for self and children article in same call
-        self.random_links = random.sample(self.links, 10)
+        self.random_links = random.sample(self.links, 48)
         self.random_links.append(self.name)
         self.views = None
         self._get_views(self.random_links)
@@ -81,14 +81,16 @@ class Article():
     # returns page_object to be looped over
     def _get_request(self, article_list):
 
-        # from _get_list
+        # if it's a list it's from _get_views
         if type(article_list) == list:
             titles = "|".join(article_list)
-            php = "https://en.wikipedia.org/w/api.php?action=query&prop=pageviews&format=json&titles=" + titles
+            # api call to get pageviews
+            php = "https://en.wikipedia.org/w/api.php?action=query&prop=pageviews&format=json&pvipcontinue&titles=" + titles
 
-        # from _get_views, assume single string
+        # if it's not a list, it's from _get_links, assume single string
         else:
             title = article_list
+            # api to get page links
             php="https://en.wikipedia.org/w/api.php?action=query&prop=links&pllimit=max&format=json&titles=" + title
         
         headers = {
@@ -96,8 +98,10 @@ class Article():
             'From' : 'cdtv1473@gmail.com'
         }
         response = requests.get(php, headers=headers)
+        # for header in response.headers:
+            # print(header + ' : ' + response.headers[header])
+        print()
         content = response.text
-
         json_object = json.loads(content)
         print(json_object['continue'])
         query_object = json_object['query']
@@ -110,7 +114,8 @@ class Article():
 
 if __name__ == "__main__":
     name = "Avengers_(comics)"
-    a = Article(name)
+    name2 = 'Harry_Potter'
+    a = Article(name2)
 
     print(a.name)
     # print(a.links)
