@@ -1,6 +1,6 @@
 import json, requests, random
 # random.seed(10)
-
+DEBUG = False
 
 # make links become children as soon as they're made?
 # make sure that self.views is not None
@@ -50,7 +50,8 @@ class Article():
         page_object = self._get_request(article_list)
         for page_id in page_object:
             title = (page_object[page_id]['title'])
-            print(title)
+            if DEBUG == True: 
+                print(title)
             sum = 0
             try:
                 for date in (page_object[page_id]['pageviews']):
@@ -62,15 +63,17 @@ class Article():
                         else:
                             sum += daily_viewcount
                     except:
-                        print()
-                        print("view error")
+                        if DEBUG == True:
+                            print()
+                            print("view error")
                         sum += 0
             except:
-                print()
-                print("pageview error")
+                if DEBUG == True:
+                    print()
+                    print("pageview error")
             if self._wiki_format(title) == self.name:
                 self.views = sum
-            print(sum)
+            # print(sum)
 
 
     
@@ -92,10 +95,11 @@ class Article():
             'User-Agent': 'wikipedia game solver',
             'From' : 'cdtv1473@gmail.com'
         }
-        # print(php)
         response = requests.get(php, headers=headers)
         content = response.text
+
         json_object = json.loads(content)
+        print(json_object['continue'])
         query_object = json_object['query']
         page_object = query_object['pages']
     
