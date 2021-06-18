@@ -126,7 +126,7 @@ class Article():
 
                 # print('.')
 
-        # time.sleep(.5)
+        time.sleep(.5)
         query_object = json_object['query']
         page_object = query_object['pages']
     
@@ -162,13 +162,11 @@ class Article():
         Article.solver(left.best_child, right.parent)
 
 if __name__ == "__main__":
-    name = "Ghidra"
-    name2 = 'photosynthesis'
+    name = "g-eazy"
+    name2 = 'the_room'
     a = Article(name, 'l')
     b = Article(name2, 'r')
 
-    print(a.best_child)
-    print(len(a.random_links))
     # print(len(a.links))
     # print(len(b.links))
 
