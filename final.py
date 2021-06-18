@@ -8,13 +8,13 @@ DEBUG = False
 
 
 class Article():
-    def __init__(self, article_name):
+    def __init__(self, article_name, direction = None):
         if article_name.startswith("https://") or article_name.startswith("en.wikipedia.org"):
             self.name = article_name.rsplit('/', 1)[-1]
         else:
             self.name = article_name
-
-        self.links = self._get_links(self.name)     # list of links
+        self.direction = direction
+        self.links = self._get_links(self.name, direction)     # list of links
         self.views = None   # number of views for this article
 
         # gets number of views for self and children article in the same call
@@ -36,13 +36,18 @@ class Article():
     def _wiki_format(self, article_title):
         return article_title.replace(" ", "_")
 
-    def _get_links(self, article_name):
+    def _get_links(self, article_name, direction):
         sub_links = []
-        page_object = self._get_request(article_name)
+        page_object = self._get_request(article_name, direction)
         for page_id in page_object:
-                for title in (page_object[page_id]['links']):
-                    sub_article = title['title']
-                    sub_links.append(sub_article)
+                if 'links' in page_object[page_id]:
+                    for title in (page_object[page_id]['links']):
+                        sub_article = title['title']
+                        sub_links.append(sub_article)
+                else:
+                    for title in (page_object[page_id]['linkshere']):
+                        sub_article = title['title']
+                        sub_links.append(sub_article)
         return sub_links
     
     def _get_best_sub_article(self, article_list):
@@ -79,11 +84,11 @@ class Article():
         # print(max_views)
         # # self.best_child = (max_title)              
         # print(">")
-        return Article(max_title)
+        return max_title
     
     # article_list can be a list of one
     # returns page_object to be looped over
-    def _get_request(self, article_list):
+    def _get_request(self, article_list, direction = None):
 
         # if it's a list it's from _get_views
         if type(article_list) == list:
@@ -92,11 +97,15 @@ class Article():
             api = "https://en.wikipedia.org/w/api.php?action=query&prop=pageviews&format=json&pvipcontinue&titles=" + titles
 
         # if it's not a list, it's from _get_links, assume single string
-        else:
+        elif direction == "l":
             title = article_list
             # api to get page links
             api="https://en.wikipedia.org/w/api.php?action=query&prop=links&pllimit=max&format=json&titles=" + title
         
+        elif direction == "r":
+            title = article_list
+            api="https://en.wikipedia.org/w/api.php?action=query&prop=linkshere&lhlimit=max&format=json&titles=" + title
+
         headers = {
             'User-Agent': 'wikipedia game solver',
             'From' : 'cdtv1473@gmail.com'
@@ -115,9 +124,9 @@ class Article():
                 new_content = new_response.text
                 json_object = json.loads(new_content)
 
-                time.sleep(.5)
                 # print('.')
 
+        # time.sleep(.5)
         query_object = json_object['query']
         page_object = query_object['pages']
     
@@ -137,17 +146,17 @@ class Article():
         # check if lists match up
         for item in left.links:
             if item in right.links:
-                new = Article(item)
+                new = Article(item, 'l')
                 left(new)
                 new(right)
                 return
         
         # get best children/parents
-        left.best_child = left._get_best_sub_article(left.random_links)
+        left.best_child = Article(left._get_best_sub_article(left.random_links), "l")
         left(left.best_child)
 
 
-        right.parent = right._get_best_sub_article(right.random_links)
+        right.parent = Article(right._get_best_sub_article(right.random_links), 'r')
         right.parent(right)
 
         Article.solver(left.best_child, right.parent)
@@ -155,9 +164,11 @@ class Article():
 if __name__ == "__main__":
     name = "Ghidra"
     name2 = 'photosynthesis'
-    a = Article(name)
-    b = Article(name2)
+    a = Article(name, 'l')
+    b = Article(name2, 'r')
 
+    print(a.best_child)
+    print(len(a.random_links))
     # print(len(a.links))
     # print(len(b.links))
 
