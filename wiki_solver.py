@@ -1,11 +1,6 @@
 import json, requests, random, time
-# 28 gets stuck on emma watson and clint eastwood
 random.seed(29)
 DEBUG = False
-
-# make links become children as 8oon as they're made?
-# make sure that self.views is not None
-
 
 class Article():
     def __init__(self, article_name, direction = None):
@@ -27,7 +22,6 @@ class Article():
         self.parent = None
         self.best_child = None
 
-    #? may need an uplink function?
     # links the parent to the child
     def __call__(self, child):
         self.best_child = child
@@ -80,10 +74,6 @@ class Article():
                 max_views = sum
                 max_title = title
 
-        # print(max_title)
-        # print(max_views)
-        # # self.best_child = (max_title)              
-        # print(">")
         return max_title
     
     # article_list can be a list of one
@@ -163,7 +153,7 @@ class Article():
 
 if __name__ == "__main__":
     name = "g-eazy"
-    name2 = 'the_room'
+    name2 = 'The_Room'
     a = Article(name, 'l')
     b = Article(name2, 'r')
 
