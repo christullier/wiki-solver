@@ -39,7 +39,11 @@ class Article():
             sample_size = len(self.links)
         
         random_links = sample(self.links, sample_size)
-        random_links.append(self.title)
+
+        # if the previous article was included, skip it 
+        # this saves a surprsing amout of time lol
+        if self.child != self.title or self.parent != self.title:
+            random_links.append(self.title)
         return random_links
 
     def best_link(self):
@@ -55,10 +59,10 @@ class Article():
 
 
 if __name__ == "__main__":
-    a = Article("The_Room")
-    print(a.title)
-    a.backlinks()
-    a.get_views_dict()
+    start = Article("The_Room")
+    print(start.title)
+    start.backlinks()
+    start.get_views_dict()
 
-    print(a.best_link())
+    print(start.best_link())
     
