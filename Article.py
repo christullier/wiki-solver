@@ -47,8 +47,7 @@ class Article():
 
         # if the previous article was included, skip it 
         # keeps it from getting 'stuck' on a popular article
-        # # this saves a surprsing amount of time lol
-        if self.child != self.title or self.parent != self.title:
+        if (self.child != self.title and self.parent == None) or (self.parent != self.title and self.child == None):
             random_links.append(self.title)
         
         return random_links
