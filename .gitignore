@@ -1,3 +1,4 @@
 *.history
 settings.json
-test.*
+test/**
+__pycache__/**
