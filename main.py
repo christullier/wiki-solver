@@ -40,8 +40,18 @@ if __name__ == "__main__":
     name1 = "Avengers (comics)" # starting article
     name2 = "The Room" # finish article
 
+    ui1 = input('starting link: ')
+    ui2 = input('ending link: ')
+    
+    if ui1 != "":
+        name1 = ui1
+    if ui2 != "":
+        name2 = ui2
+    
     start = Article(name1)
     end = Article(name2)
+
+    print("Searching...")
 
     solve(start, end)
 
