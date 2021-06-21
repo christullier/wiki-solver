@@ -1,7 +1,2 @@
-get next article
-    - function that returns an object containing the next broad article
-
-set up article class with
-
-
-use backlinks (from wiki api) to start from the bottom page and go up
+* include some context for each article
+** add a new context variable to article class?
