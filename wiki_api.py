@@ -49,18 +49,21 @@ def api_views(article_list):
     
     for id in page:
         title = page[id]['title']
-        pageviews = page[id]['pageviews']
-        total_views = 0
-        # pagevies are separated by day, summed here
-        for date in pageviews:
-            daily_views = pageviews[date]
-            
-            if daily_views == None:
-                total_views += 0
-            else:
-                total_views += daily_views
+        if not title.startswith("Wikipedia") or title.startswith("Categor") or title.startswith("Help"):
+            pageviews = page[id]['pageviews']
+            total_views = 0
+            # pagevies are separated by day, summed here
+            for date in pageviews:
+                daily_views = pageviews[date]
+                
+                if daily_views == None:
+                    total_views += 0
+                else:
+                    total_views += daily_views
 
-        views_dict[title] = total_views
+            views_dict[title] = total_views
+        # else:
+        #     print("ignored: {}".format(title)) # remove this before pushing
     return views_dict
 
 # for cleaner code

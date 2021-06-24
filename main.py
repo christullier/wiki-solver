@@ -1,4 +1,5 @@
 from Article import *
+import sys
 
 # left node is starting and right is ending
 def solve(left, right):
@@ -40,8 +41,12 @@ if __name__ == "__main__":
     name1 = "Avengers (comics)" # starting article
     name2 = "The Room" # finish article
 
-    ui1 = input('starting link: ')
-    ui2 = input('ending link: ')
+    if len(sys.argv) > 1:
+        ui1 = str(sys.argv[1])
+        ui2 = str(sys.argv[2])
+    else:
+        ui1 = input('starting link: ')
+        ui2 = input('ending link: ')
     
     if ui1 != "":
         name1 = ui1
