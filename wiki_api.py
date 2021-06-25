@@ -49,7 +49,7 @@ def api_views(article_list):
     
     for id in page:
         title = page[id]['title']
-        if not title.startswith("Wikipedia") or title.startswith("Categor") or title.startswith("Help"):
+        if not title.startswith("Wikipedia:") or title.startswith("Category:") or title.startswith("Help:"):
             pageviews = page[id]['pageviews']
             total_views = 0
             # pagevies are separated by day, summed here
