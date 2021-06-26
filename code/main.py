@@ -29,13 +29,15 @@ def solve(left, right):
 
 # prints list of articles with the game's solution (you gotta solve first solving)
 def printer(start_article):
+    print()
     current = start_article
     print(current.title)
 
     # keeps printing as long as there's children
     while current.child is not None:
         current = current.child
-        print(current.title)
+        if current.title != current.parent.title: # prevents from printing duplicates
+            print(current.title)
     
 if __name__ == "__main__":
     name1 = "Avengers (comics)" # starting article

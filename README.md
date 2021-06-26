@@ -1,23 +1,44 @@
-# Wiki-Crawler
+# Wiki-Solver
+## What does it do?
+1. Takes two (usually random) wikipedia articles as input
+2. Finds a path between them, using only wiki links starting on those pages
+3. Prints the path between the two articles
+
+
 ## How to run
 * run `main.py`
 * type in wikipedia links
-    * eg: https://en.wikipedia.org/wiki/The_Room
+    * they can be either a wiki link or the title of an article
+    * quotes are necessary for command line args if the title has spaces
 
-## Wikipedia Game Basics
-### Get Set:
-* Obtain two random wiki articles
-* Designate one as the start, and the other as the end
+## Examples:
+### Normal:
+```
+> python main.py
+starting link: https://en.wikipedia.org/wiki/Avengers_(comics)
+ending link: The Room
+Searching...
 
-### Play:
-* Open the starting article
-* Look at all the hyperlinks on the page
-* Click the link you think will get you closest to the ending article
-* Repeat
+Avengers_(comics)
+Captain America: The First Avenger
+Chris Evans (actor)
+James Franco
+The Room
+```
 
-### Rules:
-* NO back button
-* Only use hyperlinks that are part of the article itself
-  * e.g. don't use the Catagories section at the bottom of the page
+### Command line args:
+```
+> python main.py "Elon Musk" Muskrat
+Searching...
 
-full rules: https://en.wikipedia.org/wiki/Wikipedia:Wiki_Game
+Elon Musk
+Mars Society
+California
+Utah
+Muskrat
+```
+
+## Da Rules:
+* https://en.wikipedia.org/wiki/Wikipedia:Wiki_Game
+
+Made using Python 3.9.5
