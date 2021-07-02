@@ -1,2 +1,11 @@
-* include some context for each article
-** add a new context variable to article class?
+include some context for each article
+* add a new context variable to article class?
+
+Add link checking on input
+* that way it won't return a weird json error for not recognizing the link
+
+Searching
+* moving ellipsis while searching
+
+async requests (httpx)
+* can search left and right nodes simultaneously

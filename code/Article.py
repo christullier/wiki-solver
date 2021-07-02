@@ -1,4 +1,4 @@
-from wiki_api import api_backlinks, api_forwardlinks, api_views
+from wiki_api import *
 from random import random, sample
 
 # accepts wiki links or article names formatted the same way as wiki-links
@@ -45,10 +45,12 @@ class Article():
         
         random_links = sample(self.links, sample_size)
 
-        # if the previous article was included, skip it 
-        # keeps it from getting 'stuck' on a popular article
-        if (self.child != self.title and self.parent == None) or (self.parent != self.title and self.child == None):
-            random_links.append(self.title)
+        # the first article won't have a parent or child
+        if self.child != None and self.parent != None:
+            # keeps it from getting 'stuck' on a popular article
+            # if the previous article was included, skip it 
+            if (self.child.title != self.title and self.parent == None) or (self.parent.title != self.title and self.child == None):
+                random_links.append(self.title)
         
         return random_links
 
@@ -57,7 +59,7 @@ class Article():
         best = ""
         views = 0
         # seemingly-unnecessary for loop here because I couldn't find a convenient way to get the 'title' from the views_dict
-        # it doesn't add that much time anyway
+        # it doesn't add that much time right?
         for title in self.views_dict:
             if self.views_dict[title] > views:
                 views = self.views_dict[title]
