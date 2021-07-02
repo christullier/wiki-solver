@@ -1,4 +1,5 @@
-import json, requests
+import json
+import requests
 
 # wiki-api likes their headers
 headers = {
@@ -49,7 +50,8 @@ def api_views(article_list):
     
     for id in page:
         title = page[id]['title']
-        if not title.startswith("Wikipedia:") or title.startswith("Category:") or title.startswith("Help:"):
+        # skips wiki, category, help, and user articles
+        if not (title.startswith("Wikipedia:") or title.startswith("Category:") or title.startswith("Help:") or title.startswith("User:")):
             pageviews = page[id]['pageviews']
             total_views = 0
             # pagevies are separated by day, summed here
@@ -62,11 +64,10 @@ def api_views(article_list):
                     total_views += daily_views
 
             views_dict[title] = total_views
-        # else:
-        #     print("ignored: {}".format(title)) # remove this before pushing
+
     return views_dict
 
-# for cleaner code
+# does request and returns json object, mostly for cleaner code
 def _json_object(api_call):
     response = requests.get(api_call, headers=headers)
     content = response.text
