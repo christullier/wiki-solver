@@ -1,5 +1,8 @@
-from wiki_api import *
+import asyncio
 from random import random, sample
+
+from wiki_api import *
+
 
 # accepts wiki links or article names formatted the same way as wiki-links
 class Article():
@@ -32,9 +35,9 @@ class Article():
     def backlinks(self):
         self.links = api_backlinks(self.title)
 
-    def get_views_dict(self):
+    async def get_views_dict(self):
         random_links = self._random_links()
-        self.views_dict = api_views(random_links)
+        self.views_dict = await api_views(random_links)
     
     # returns a set of random links to get the views of
     def _random_links(self):

@@ -1,5 +1,6 @@
+import asyncio
+import httpx
 import json
-import requests
 
 # wiki-api likes their headers
 headers = {
@@ -36,15 +37,15 @@ def api_backlinks(article_title):
 
 # input a list of articles and returns a dictionary of with format {title : viewcount}
 # gets pageviews from last 60 days
-def api_views(article_list):
+async def api_views(article_list):
     titles = "|".join(article_list)
     api = "https://en.wikipedia.org/w/api.php?action=query&prop=pageviews&format=json&pvipcontinue&titles=" + titles
-    json_object = _json_object(api)
+    json_object = await _async_json_object(api)
     views_dict = {}
     
     # api tag that lets us know if we need to make the request again (seems like api caches the result for us?)
     while 'continue' in json_object:
-        json_object = _json_object(api)
+        json_object = await _async_json_object(api)
     
     page = _page_obj(json_object)
     
@@ -67,9 +68,19 @@ def api_views(article_list):
 
     return views_dict
 
+# async so both nodes can get views at the same time
+async def _async_json_object(api_call):
+    async with httpx.AsyncClient() as client:
+        response = await client.get(api_call, headers=headers)    
+        content = response.text
+        await client.aclose()
+        print(".", end='', flush = True)
+        return(json.loads(content))
+    
+
 # does request and returns json object, mostly for cleaner code
 def _json_object(api_call):
-    response = requests.get(api_call, headers=headers)
+    response = httpx.get(api_call, headers=headers)
     content = response.text
     return(json.loads(content))
 
