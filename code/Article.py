@@ -37,6 +37,8 @@ class Article():
     def get_views_dict(self):
         random_links = self._random_links()
         self.views_dict = api_views(random_links)
+        
+        # if there isn't a valid forwarlink or backlink, print error message and exit
         if len(self.views_dict) == 0:
             if self.parent == None:
                 print (f"\n'{self.title}' has no valid backlinks, try a different set of links")
@@ -58,8 +60,8 @@ class Article():
 
         # the first article won't have a parent or child
         if self.child != None and self.parent != None:
-            # keeps it from getting 'stuck' on a popular article
             # if the previous article was included, skip it 
+            # keeps it from getting 'stuck' on a popular article
             if (self.child.title != self.title and self.parent == None) or (self.parent.title != self.title and self.child == None):
                 random_links.append(self.title)
         

@@ -22,15 +22,11 @@ def solve(left, right):
 
     left.get_views_dict()
     left.child = Article(left.best_link())
-    # print(".", end='', flush = True)
-    # print(f"{left.child.title=}", flush = True)
     left(left.child) # callable that links parent(child)
 
     right.get_views_dict()
     right.parent = Article(right.best_link())
-    # print(".", end='', flush = True)
 
-    # print(f"{right.parent.title=}", flush = True)
     right.parent(right) # right is the child in this case because we're using backlinks
     solve(left.child, right.parent)
     print()
@@ -45,7 +41,6 @@ def printer(start_article):
     # keeps printing as long as there's children
     while current.child is not None:
         current = current.child
-        # if current.title != current.parent.title: # prevents from printing duplicates
         print(current.title)
     
 if __name__ == "__main__":
