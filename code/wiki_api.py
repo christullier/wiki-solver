@@ -53,7 +53,7 @@ def api_views(article_list):
     for id in page:
         title = page[id]['title']
         # skips wiki, category, help, and user articles
-        if not (title.startswith("Wikipedia:") or title.startswith("Category:") or title.startswith("Help:") or title.startswith("User:")):
+        if not (title.startswith("Wikipedia:") or title.startswith("Category:") or title.startswith("Help:") or title.startswith("User:") or title.startswith("Template:") or title.endswith("(disambiguation)")):
             pageviews = page[id]['pageviews']
             total_views = 0
             # pagevies are separated by day, summed here
@@ -66,7 +66,7 @@ def api_views(article_list):
                     total_views += daily_views
 
             views_dict[title] = total_views
-
+            
     return views_dict
 
 # does request and returns json object, mostly for cleaner code

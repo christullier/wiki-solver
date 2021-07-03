@@ -1,5 +1,7 @@
-from wiki_api import *
 from random import random, sample
+
+from wiki_api import *
+
 
 # accepts wiki links or article names formatted the same way as wiki-links
 class Article():
@@ -35,6 +37,15 @@ class Article():
     def get_views_dict(self):
         random_links = self._random_links()
         self.views_dict = api_views(random_links)
+        if len(self.views_dict) == 0:
+            if self.parent == None:
+                print (f"\n'{self.title}' has no valid backlinks, try a different set of links")
+            elif self.child == None:
+                print (f"\n'{self.title}' has no valid forwardlinks, try a different set of links")
+            else:
+                print (f"\n'{self.title}' has no valid links, try a different set of links")
+            exit()
+
     
     # returns a set of random links to get the views of
     def _random_links(self):
