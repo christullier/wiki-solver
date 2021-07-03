@@ -41,7 +41,6 @@ async def api_backlinks(article_title):
     links = []
     api="https://en.wikipedia.org/w/api.php?action=query&prop=linkshere&lhlimit=max&format=json&titles=" + article_title
     json_object = await _async_json_object(api)
-    print(json_object)
     page = _page_obj(json_object)
 
     for id in page:

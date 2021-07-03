@@ -4,7 +4,6 @@ from time import sleep, time
 from random import random, seed
 
 from Article import *
-seed(1)
 
 # left node is starting and right is ending
 async def solve(left, right):
@@ -37,7 +36,7 @@ async def solve(left, right):
     right.parent(right) # right is the child in this case because we're using backlinks
     print()
     
-    print(f"\n{left.child.title} -> {right.parent.title}", flush = True)
+    print(f"\n{left.child.title} <---> {right.parent.title}", flush = True)
     # print(f"right: {right.parent.title}", flush = True)
     # print(".", end='', flush = True)
 
@@ -46,7 +45,7 @@ async def solve(left, right):
 
 # prints list of articles with the game's solution (you gotta solve first solving)
 def printer(start_article):
-    print()
+    print("\n")
     current = start_article
     print(current.title)
 
@@ -61,16 +60,16 @@ if __name__ == "__main__":
     name2 = "The Room" # finish article
 
     if len(sys.argv) > 1:
-        ui1 = str(sys.argv[1])
-        ui2 = str(sys.argv[2])
+        cmd1 = str(sys.argv[1])
+        cmd2 = str(sys.argv[2])
     else:
-        ui1 = input('starting link: ')
-        ui2 = input('ending link: ')
+        cmd1 = input('starting link: ')
+        cmd2 = input('ending link: ')
     
-    if ui1 != "":
-        name1 = ui1
-    if ui2 != "":
-        name2 = ui2
+    if cmd1 != "":
+        name1 = cmd1
+    if cmd2 != "":
+        name2 = cmd2
     
     start = Article(name1)
     end = Article(name2)
