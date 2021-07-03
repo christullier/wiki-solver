@@ -4,8 +4,8 @@
 2. Finds a path between them, using only wiki links starting on those pages
 3. Prints the path between the two articles
 
-
 ## How to run
+* run `pip install httpx`
 * run `main.py`
 * type in wikipedia links
     * they can be either a wiki link or the title of an article

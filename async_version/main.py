@@ -1,9 +1,10 @@
 import asyncio
 import sys
-from time import sleep, time
 from random import random, seed
+from time import sleep, time
 
 from Article import *
+
 
 # left node is starting and right is ending
 async def solve(left, right):
