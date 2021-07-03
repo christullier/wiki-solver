@@ -1,4 +1,3 @@
-import asyncio
 from random import random, sample
 
 from wiki_api import *

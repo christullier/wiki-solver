@@ -4,7 +4,7 @@ from time import sleep, time
 from random import random, seed
 
 from Article import *
-seed(7)
+seed(12)
 
 # left node is starting and right is ending
 async def solve(left, right):
@@ -13,7 +13,7 @@ async def solve(left, right):
     left.forwardlinks()
     right.backlinks()
     t4 = time()
-    print(f"links: {t4-t3=}")
+    # print(f"links: {t4-t3=}")
     # check if lists match up
     for item in left.links:
         # if there's a match, it links the two ends of the linked list
@@ -31,15 +31,16 @@ async def solve(left, right):
         right.get_views_dict()
     )
     t2 = time()
-    print(f"views: {t2-t1=}")
+    # print(f"views: {t2-t1=}")
     left.child = Article(left.best_link())
     right.parent = Article(right.best_link())
     
     left(left.child) # callable that links parent(child)
     right.parent(right) # right is the child in this case because we're using backlinks
-
-    print(f"{left.child.title=}", flush = True)
-    print(f"{right.parent.title=}", flush = True)
+    print()
+    
+    # print(f"{left.child.title}\n{right.parent.title}", flush = True)
+    # print(f"right: {right.parent.title}", flush = True)
     # print(".", end='', flush = True)
 
 
