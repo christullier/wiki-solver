@@ -8,11 +8,18 @@ headers = {
 'From' : 'cdtv1473@gmail.com'
 }
 
-# wiki api call to get all the links on a wikipedia page (left node)
-def api_forwardlinks(article_title):
+async def api_forwardlinks(article_title):
+    """Gets the forwardlinks for an article, for use on left nodes
+
+    Args:
+        article_title (text): wiki article title
+
+    Returns:
+        list: wiki links from the title page
+    """    
     links = []
     api="https://en.wikipedia.org/w/api.php?action=query&prop=links&pllimit=max&format=json&titles=" + article_title
-    json_object = _json_object(api)
+    json_object = await _async_json_object(api)
     page = _page_obj(json_object)
 
     for id in page:
@@ -22,12 +29,21 @@ def api_forwardlinks(article_title):
 
     return links
 
-# wiki-api call to get all backlinks on a page (right node)
-def api_backlinks(article_title):
+async def api_backlinks(article_title):
+    """Gets the backlinks for an article, for use on right nodes
+
+    Args:
+        article_title (text): wiki article title
+
+    Returns:
+        list: wiki links that link to the title page
+    """
     links = []
     api="https://en.wikipedia.org/w/api.php?action=query&prop=linkshere&lhlimit=max&format=json&titles=" + article_title
-    json_object = _json_object(api)
+    json_object = await _async_json_object(api)
+    print(json_object)
     page = _page_obj(json_object)
+
     for id in page:
         for title in page[id]['linkshere']:
             article = title['title']
@@ -35,9 +51,15 @@ def api_backlinks(article_title):
 
     return links
 
-# input a list of articles and returns a dictionary of with format {title : viewcount}
-# gets pageviews from last 60 days
 async def api_views(article_list):
+    """Gets pageviews from the last 60 days for a list of 50 or less articles
+
+    Args:
+        article_list (list): a list of article titles
+
+    Returns:
+        dict: {title : viewcount} for each article in the list
+    """
     titles = "|".join(article_list)
     api = "https://en.wikipedia.org/w/api.php?action=query&prop=pageviews&format=json&pvipcontinue&titles=" + titles
     json_object = await _async_json_object(api)
@@ -70,6 +92,14 @@ async def api_views(article_list):
 
 # async so both nodes can get views at the same time
 async def _async_json_object(api_call):
+    """async function to make a request to the wiki api and return a json object
+
+    Args:
+        api_call (text): link to the api call
+    
+    Returns:
+        dict: json content from the api call
+    """            
     async with httpx.AsyncClient() as client:
         response = await client.get(api_call, headers=headers)    
         content = response.text
@@ -79,12 +109,22 @@ async def _async_json_object(api_call):
     
 
 # does request and returns json object, mostly for cleaner code
+"""
 def _json_object(api_call):
     response = httpx.get(api_call, headers=headers)
     content = response.text
     return(json.loads(content))
+"""
 
 # also here for cleaner code
 def _page_obj(json_object):
+    """takes json input and returns a page object
+
+    Args:
+        json_object (dict): json data from api
+
+    Returns:
+        dict: json object for the 'pages' of an article
+    """
     query_object = json_object['query']
     return(query_object['pages'])

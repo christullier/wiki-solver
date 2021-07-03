@@ -27,12 +27,12 @@ class Article():
             self.title = self.title.rsplit('/', 1)[-1]
 
     # left nodes will use this
-    def forwardlinks(self):
-        self.links = api_forwardlinks(self.title)
+    async def forwardlinks(self):
+        self.links = await api_forwardlinks(self.title)
 
     # right nodes will use this
-    def backlinks(self):
-        self.links = api_backlinks(self.title)
+    async def backlinks(self):
+        self.links = await api_backlinks(self.title)
 
     async def get_views_dict(self):
         random_links = self._random_links()
