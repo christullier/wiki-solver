@@ -5,6 +5,7 @@ from time import time
 
 from Article import *
 
+seed(1)
 # left node is starting and right is ending
 async def solve(left, right):
     # get links here because the for loop won't work without them
@@ -12,15 +13,27 @@ async def solve(left, right):
         left.forwardlinks(),
         right.backlinks())
 
-    # check if lists match up
-    for item in left.links:
-        # if there's a match, it links the two ends of the linked list
-        # if match is found, the program won't get views, which saves time (neat!)
-        if item in right.links:
-            new = Article(item)
-            left(new)
-            new(right)
-            return
+    # check current left node against the end node and its parents
+    r = end
+    while r != None:
+        for item in left.links:
+            if item in r.links:
+                new = Article(item)
+                left(new)
+                new(r)
+                return
+        r = r.parent
+    
+    # check current right node against the start node and it's children
+    l = start
+    while l != None:
+        for item in right.links:
+            if item in l.links:
+                new = Article(item)
+                l(new)
+                new(right)
+                return
+        l = l.parent
 
     # asynchronously get both sides
     await asyncio.gather(
@@ -32,12 +45,16 @@ async def solve(left, right):
     
     left(left.child) # callable that links parent(child)
     right.parent(right) # right is the child in this case because we're using backlinks
-    print()
     
-    print(f"\n{left.child.title} <---> {right.parent.title}", flush = True)
+    sys.stdout.write("\033[F")
 
-
+    print()
+    sys.stdout.write("\033[K")
+    sys.stdout.write(f"{left.child.title} <---> {right.parent.title}")
+    sys.stdout.flush()
+    
     await solve(left.child, right.parent)
+
 
 # prints list of articles with the game's solution (you gotta solve first solving)
 def printer(start_article):
@@ -69,6 +86,8 @@ if __name__ == "__main__":
     if cmd2 != "":
         name2 = cmd2
     
+    global start 
+    global end
     start = Article(name1)
     end = Article(name2)
 
@@ -78,6 +97,10 @@ if __name__ == "__main__":
     asyncio.run(solve(start, end))
     tf = time()
 
-    tot = printer(start)
-    print(f"time = {tf-ti}")
-    print(f"{(tf-ti)/tot} per article")
+    tot_articles = printer(start)
+    
+    tot_time = round(tf-ti, 2)
+    print()
+    print(f"{tot_time}s total runtime")
+    print(f"{tot_articles} total articles")
+    print(f"{round(tot_time/tot_articles, 2)}s per article")

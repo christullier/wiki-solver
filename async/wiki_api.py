@@ -105,7 +105,7 @@ async def _async_json_object(api_call):
         response = await client.get(api_call, headers=headers)    
         content = response.text
         await client.aclose()
-        print(".", end='', flush = True)
+        print(".", flush = True, end = "")
         return(json.loads(content))
     
 
