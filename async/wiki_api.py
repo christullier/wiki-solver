@@ -91,7 +91,6 @@ async def api_views(article_list):
 
     return views_dict
 
-# async so both nodes can get views at the same time
 async def _async_json_object(api_call):
     """async function to make a request to the wiki api and return a json object with article information
 

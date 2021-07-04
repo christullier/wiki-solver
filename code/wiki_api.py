@@ -7,7 +7,6 @@ headers = {
 'From' : 'cdtv1473@gmail.com'
 }
 
-# wiki api call to get all the links on a wikipedia page (left node)
 def api_forwardlinks(article_title):
     """Gets the forwardlinks for an article, for use on left nodes
 
@@ -31,7 +30,6 @@ def api_forwardlinks(article_title):
 
     return links
 
-# wiki-api call to get all backlinks on a page (right node)
 def api_backlinks(article_title):
     """Gets the backlinks for an article, for use on right nodes
 
@@ -54,8 +52,6 @@ def api_backlinks(article_title):
 
     return links
 
-# input a list of articles and returns a dictionary of with format {title : viewcount}
-# gets pageviews from last 60 days
 def api_views(article_list):
     """Gets pageviews from the last 60 days for a list of 50 or less articles
 
@@ -93,7 +89,6 @@ def api_views(article_list):
             
     return views_dict
 
-# does request and returns json object, mostly for cleaner code
 def _request_json(api_call):
     """makes request to the wiki api and returns a json object with article information
 
@@ -105,7 +100,7 @@ def _request_json(api_call):
     """
     response = requests.get(api_call, headers=headers)
     content = response.text
-    print(".", end='', flush = True)
+    print(".", flush = True, end = "")
     return(json.loads(content))
 
 

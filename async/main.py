@@ -1,11 +1,9 @@
 import asyncio
 import sys
-from random import seed
 from time import time
 
 from Article import *
 
-seed(1)
 # left node is starting and right is ending
 async def solve(left, right):
     # get links here because the for loop won't work without them
@@ -60,8 +58,10 @@ async def solve(left, right):
 def printer(start_article):
     print("\n")
     current = start_article
+
     print(current.title)
     total_articles = 1
+    
     # keeps printing as long as there's children
     while current.child is not None:
         current = current.child
