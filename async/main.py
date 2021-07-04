@@ -4,6 +4,7 @@ from time import time
 
 from Article import *
 
+
 # left node is starting and right is ending
 async def solve(left, right):
     # get links here because the for loop won't work without them
@@ -91,7 +92,7 @@ if __name__ == "__main__":
     start = Article(name1)
     end = Article(name2)
 
-    print("Searching")
+    print("Searching", end="")
 
     ti = time()
     asyncio.run(solve(start, end))

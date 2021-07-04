@@ -54,7 +54,7 @@ class Article():
     
     # returns a set of random links to get the views of
     def _random_links(self):
-        sample_size = 49 # the sample size is 49 because 50 is the most titles you can have in one api call (we append self lower down)
+        sample_size = 20 # the sample size is 49 because 50 is the most titles you can have in one api call (we append self lower down)
         # if there are less than 49 links on an article's page
         if sample_size > len(self.links):
             sample_size = len(self.links)

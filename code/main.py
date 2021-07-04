@@ -88,7 +88,7 @@ if __name__ == "__main__":
     start = Article(name1)
     end = Article(name2)
 
-    print("Searching")
+    print("Searching", end="")
 
     ti = time()
     solve(start, end)
