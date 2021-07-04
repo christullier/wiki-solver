@@ -41,4 +41,4 @@ Muskrat
 ## Da Rules:
 * https://en.wikipedia.org/wiki/Wikipedia:Wiki_Game
 
-Made using Python 3.9.5
+Made using Python 3.9.2
