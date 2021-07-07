@@ -122,7 +122,7 @@ async def bot_main(article1, article2):
     )
     tot_articles, art_list = printer(start)
     # print(art_list)
-    str_output = " ".join(art_list)
+    str_output = " -> ".join(art_list)
     # print(str_output)
     return str_output
 

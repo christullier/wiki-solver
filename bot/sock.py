@@ -19,15 +19,13 @@ async def on_message(message):
         return
     
     if message.content.startswith('$wiki'):
-        await message.channel.send('Send with format: $first_article second_article')
+        await message.channel.send('Send with format: $first article | secondarticle')
 
     elif message.content.startswith('$'):
         content = message.content[1:] # removes '$'
-        content = content.split(" ")
+        content = content.split("|")
         article1 = content[0]
-        # print(article1)
         article2 = content[1]
-        # print(article2)
 
         articles = await (bot_main(article1, article2))
         print(articles)
