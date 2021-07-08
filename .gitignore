@@ -3,3 +3,4 @@ settings.json
 test/**
 __pycache__/
 *.pyc
+.env
