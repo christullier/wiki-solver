@@ -3,3 +3,5 @@ discord==1.7.3
 discord.py==1.7.3
 httpx==0.18.2
 python-dotenv==0.18.0
+setuptools==57.1.0
+wheel==0.36.2
