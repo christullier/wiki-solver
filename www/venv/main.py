@@ -72,44 +72,6 @@ def printer(start_article):
         total_articles += 1
 
     return total_articles, art_list
-"""  
-
-if __name__ == "__main__":
-    name1 = "Avengers (comics)" # starting article
-    name2 = "The Room" # finish article
-
-    if len(sys.argv) > 1:
-        cmd1 = str(sys.argv[1])
-        cmd2 = str(sys.argv[2])
-    else:
-        cmd1 = input('starting link: ')
-        cmd2 = input('ending link: ')
-    
-    if cmd1 != "":
-        name1 = cmd1
-    if cmd2 != "":
-        name2 = cmd2
-    
-    global start 
-    global end
-    start = Article(name1)
-    end = Article(name2)
-
-    print("Searching", end="")
-
-    ti = time()
-    asyncio.run(solve(start, end))
-    tf = time()
-
-    tot_articles, art_list = printer(start)
-    
-    tot_time = round(tf-ti, 2)
-    print()
-    print(f"{tot_time}s total runtime")
-    print(f"{tot_articles} total articles")
-    print(f"{round(tot_time/tot_articles, 2)}s per article")
-"""
-
 
 def web_main(article1, article2):
     global start
@@ -125,4 +87,3 @@ def web_main(article1, article2):
     # print(str_output)
     return str_output
 
-# web_main("Avengers_(comics)", "The_Room")

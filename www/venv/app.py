@@ -1,23 +1,23 @@
-from flask import Flask, render_template, request, redirect, url_for
-from main import web_main
+from flask import Flask,render_template,request, redirect
+ 
 app = Flask(__name__)
 
-@app.route("/", methods=["POST", "GET"])
-def index(): 
-    if request.method == "POST":
-        article1 = request.form["art1"]
-        article2 = request.form["art2"]
-        # print(article1, article2)
-        return redirect(url_for("solution", start=article1, end=article2))
-    else:
-        return render_template('index.html')
+@app.route('/')
+def main():
+    return redirect('/form')
 
-@app.route("/<start><end>")
-def solution(start, end):
-    print(start)
-    print(end)
-    articles = web_main(start, end)
-    return f"<h1>solution page <h1> <br></br> <p>articles</p> "
-
-if __name__ == "__main__":
-    app.run(debug=True)
+@app.route('/form')
+def form():
+    return render_template('form.html')
+ 
+@app.route('/data/', methods = ['POST', 'GET'])
+def data():
+    if request.method == 'GET':
+        return f"The URL /data is accessed directly. Try going to '/form' to submit form"
+    if request.method == 'POST':
+        form_data = request.form
+        return form_data
+        # return render_template('data.html',form_data = form_data)
+ 
+ 
+app.run(host='localhost', port=5000)

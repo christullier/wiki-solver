@@ -29,28 +29,14 @@ class Article():
     # left nodes will use this
     def forwardlinks(self):
         self.links = api_forwardlinks(self.title)
-        # print(f"ftitle: {self.title}")
-        # print(self.links)
 
     # right nodes will use this
     def backlinks(self):
         self.links = api_backlinks(self.title)
-        # print(f"btitle: {self.title}")
-        # print(self.links)
 
     def get_views_dict(self):
         random_links = self._random_links()
         self.views_dict = api_views(random_links)
-        
-        # if there isn't a valid forwarlink or backlink, print error message and exit
-        if len(self.views_dict) == 0:
-            if self.parent == None:
-                print (f"\n'{self.title}' has no valid backlinks, try a different set of links")
-            elif self.child == None:
-                print (f"\n'{self.title}' has no valid forwardlinks, try a different set of links")
-            else:
-                print (f"\n'{self.title}' has no valid links, try a different set of links")
-            exit()
     
     # returns a set of random links to get the views of
     def _random_links(self):

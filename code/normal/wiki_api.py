@@ -21,12 +21,20 @@ def api_forwardlinks(article_title):
     json_object = _request_json(api)
     page = _page_obj(json_object)
 
-    for id in page:
-        for article in page[id]['links']:
-            title = article['title']
-            # skips wiki, category, help, and user articles
-            if not (title.startswith("Wikipedia:") or title.startswith("Category:") or title.startswith("Help:") or title.startswith("User:") or title.startswith("User talk:") or title.startswith("Talk:") or title.startswith("Template:") or title.endswith("(disambiguation)")):
-                links.append(title)
+    if list(page.keys())[0] != "-1":
+        for id in page:
+            for article in page[id]['links']:
+                title = article['title']
+                # skips wiki, category, help, and user articles
+                if not (title.startswith("Wikipedia:") or title.startswith("Category:") or title.startswith("Help:") or title.startswith("User:") or title.startswith("User talk:") or title.startswith("Talk:") or title.startswith("Template:") or title.endswith("(disambiguation)")):
+                    links.append(title)
+    else:
+        print(f"\n{article_title} does not have any forwardlinks")
+        exit()
+    
+    if len(links) == 0:
+        print (f"\n'{article_title}' has no valid forwardlinks, try a different set of links")
+        exit()
 
     return links
 
@@ -44,11 +52,18 @@ def api_backlinks(article_title):
     json_object = _request_json(api)
     page = _page_obj(json_object)
     for id in page:
-        for article in page[id]['linkshere']:
-            title = article['title']
-            # skips wiki, category, help, and user articles
-            if not (title.startswith("Wikipedia:") or title.startswith("Category:") or title.startswith("Help:") or title.startswith("User:") or title.startswith("User talk:") or title.startswith("Talk:") or title.startswith("Template:") or title.endswith("(disambiguation)")):
-                links.append(title)
+        if 'linkshere' in page[id].keys():
+            for article in page[id]['linkshere']:
+                title = article['title']
+                # skips wiki, category, help, and user articles
+                if not (title.startswith("Wikipedia:") or title.startswith("Category:") or title.startswith("Help:") or title.startswith("User:") or title.startswith("User talk:") or title.startswith("Talk:") or title.startswith("Template:") or title.endswith("(disambiguation)")):
+                    links.append(title)
+        else:
+            print(f"\n{article_title} does not have any backlinks")
+            exit()
+    if len(links) == 0:
+        print (f"\n'{article_title}' has no valid backlinks, try a different set of links")
+        exit()
 
     return links
 
