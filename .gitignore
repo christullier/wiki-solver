@@ -3,4 +3,6 @@ settings.json
 test/**
 __pycache__/
 *.pyc
-.env
+*.env
+www/venv/Scripts/
+www/venv/Lib/

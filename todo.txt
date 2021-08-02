@@ -1,4 +1,4 @@
-include some context for each article
+include some context for each article, for context
 * add a new context variable to article class?
 
 Add link checking on input

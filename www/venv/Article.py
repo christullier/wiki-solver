@@ -13,7 +13,7 @@ class Article():
         self.child = None
 
         self.views_dict = None # stores views information in this format: {title : views} 
-        
+         
         self.links = [] # forwarlinks or backlinks go here depending on solver() in main.py
     
     # links parent to child and vice versa (used in solver())
@@ -27,21 +27,17 @@ class Article():
             self.title = self.title.rsplit('/', 1)[-1]
 
     # left nodes will use this
-    def forwardlinks(self):
-        self.links = api_forwardlinks(self.title)
-        # print(f"ftitle: {self.title}")
-        # print(self.links)
+    async def forwardlinks(self):
+        self.links = await api_forwardlinks(self.title)
 
     # right nodes will use this
-    def backlinks(self):
-        self.links = api_backlinks(self.title)
-        # print(f"btitle: {self.title}")
-        # print(self.links)
+    async def backlinks(self):
+        self.links = await api_backlinks(self.title)
 
-    def get_views_dict(self):
+    async def get_views_dict(self):
         random_links = self._random_links()
-        self.views_dict = api_views(random_links)
-        
+        self.views_dict = await api_views(random_links)
+
         # if there isn't a valid forwarlink or backlink, print error message and exit
         if len(self.views_dict) == 0:
             if self.parent == None:
@@ -52,6 +48,7 @@ class Article():
                 print (f"\n'{self.title}' has no valid links, try a different set of links")
             exit()
     
+
     # returns a set of random links to get the views of
     def _random_links(self):
         sample_size = 20 # the sample size is 49 because 50 is the most titles you can have in one api call (we append self lower down)
