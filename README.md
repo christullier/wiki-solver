@@ -38,6 +38,16 @@ Utah
 Muskrat
 ```
 
+### Discord Bot
+Include a file titled "`.env`" in your working directory with the token set like this:
+`TOKEN=discordBotToken1234`
+
+### Docker
+`> docker run -e TOKEN=discordBotToken1234 christullier/testbot`
+
+* this has only been tested on a Raspberry Pi 3b
+
+
 ## Da Rules:
 * https://en.wikipedia.org/wiki/Wikipedia:Wiki_Game
 
