@@ -6,4 +6,3 @@ __pycache__/
 *.env
 www/venv/Scripts/
 www/venv/Lib/
-
