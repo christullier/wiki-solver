@@ -70,8 +70,12 @@ def printer(start_article):
 if __name__ == "__main__":
     name1 = "Avengers (comics)" # starting article
     name2 = "The Room" # finish article
-
-    if len(sys.argv) > 1:
+    
+    if len(sys.argv) == 2:
+        if str(sys.argv[1]) == "-h":
+            exit("Usage: main.py [start article] [end article]")
+    
+    elif len(sys.argv) == 3:
         cmd1 = str(sys.argv[1])
         cmd2 = str(sys.argv[2])
     else:
