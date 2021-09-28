@@ -40,10 +40,10 @@ Muskrat
 
 ### Discord Bot
 Include a file titled "`.env`" in your working directory with the token set like this:
-`TOKEN=discordBotToken1234`
+`TOKEN=<discord token>`
 
 ### Docker
-`> docker run -e TOKEN=discordBotToken1234 christullier/testbot`
+`> docker run -e TOKEN=<discord token> christullier/testbot`
 
 * this has only been tested on a Raspberry Pi 3b
 
