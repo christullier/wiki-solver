@@ -18,8 +18,11 @@ async def solve(left, right):
         for item in left.links:
             if item in right_node.links:
                 new = Article(item)
+
+                # forced adoption
                 left(new)
                 new(right_node)
+                
                 return
         right_node = right_node.parent
     
