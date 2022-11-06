@@ -2,7 +2,7 @@ import sys
 from time import time
 
 from Article import *
-
+from Search import *
 
 # left node is starting and right is ending
 def solve(left, right):
@@ -85,8 +85,22 @@ if __name__ == "__main__":
         cmd2 = str(sys.argv[2])
     else:
         cmd1 = input('starting link: ')
+        s1 = Search(cmd1)
+        if not (s1.results[0].lower() == cmd1.lower()):
+            for i in range(len(s1.results)):
+                print(f"\t{i} {s1.results[i]}")
+            choice = int(input("Type a number to choose one: "))
+            cmd1 = s1.results[choice]
         cmd2 = input('ending link: ')
+        s2 = Search(cmd2)
+        if not (s2.results[0].lower() == cmd2.lower()):
+            for i in range(len(s2.results)):
+                print(f"\t{i} {s2.results[i]}")
+            choice = int(input("Type a number to choose one: "))
+            cmd2 = s2.results[choice]
     
+    # check here if the article is a valid one - so the user doesn't have to find out later
+    # perhaps search for an article and return options if it doesn't exist
     if cmd1 != "":
         name1 = cmd1
     if cmd2 != "":

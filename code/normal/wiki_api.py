@@ -132,3 +132,28 @@ def _page_obj(json_object):
     """
     query_object = json_object['query']
     return(query_object['pages'])
+
+def api_search(user_input):
+    """Searches Wikipedia for an article, for use in user input
+    
+    Args:
+        user_input (string): a string to search Wikipedia with
+
+    Returns:
+        result: an article title or an error
+
+    """
+    api="https://en.wikipedia.org/w/api.php?action=query&format=json&list=search&utf8=1&formatversion=2&srsearch=" + user_input
+    json_object = _request_json(api)
+    query_object = json_object['query']
+    hits = query_object['searchinfo']['totalhits']
+    if (hits == 0):
+        return ["No Result for search: " + user_input]
+    elif (hits > 5):
+        hits = 5
+    output = []
+    for i in range(hits):
+        page = query_object['search'][i]['title']
+        output.append(page)
+    return output
+
