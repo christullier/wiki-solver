@@ -9,3 +9,5 @@ Make it check for less than 60 days
 Use the # of backlinks to a page as the value instead of views
 
 use pickling to save the paths already used
+
+check the links on the command line after the user types them in, prompt them for a new one if the article doesn't exist
