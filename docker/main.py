@@ -12,27 +12,31 @@ async def solve(left, right):
         left.forwardlinks(),
         right.backlinks())
 
+    if left.title in right.links or right.title in left.links: 
+        left(right)
+        right(left)
+        return
     # check current left node against the end node and its parents
-    r = end
-    while r != None:
+    right_node = end
+    while right_node != None:
         for item in left.links:
-            if item in r.links:
+            if item in right_node.links:
                 new = Article(item)
                 left(new)
-                new(r)
+                new(right_node)
                 return
-        r = r.parent
+        right_node = right_node.parent
     
     # check current right node against the start node and it's children
-    l = start
-    while l != None:
+    left_node = start
+    while left_node != None:
         for item in right.links:
-            if item in l.links:
+            if item in left_node.links:
                 new = Article(item)
-                l(new)
+                left_node(new)
                 new(right)
                 return
-        l = l.parent
+        left_node = left_node.parent
 
     # asynchronously get both sides
     await asyncio.gather(

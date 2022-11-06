@@ -12,6 +12,12 @@ async def solve(left, right):
         left.forwardlinks(),
         right.backlinks())
 
+
+    if left.title in right.links or right.title in left.links: 
+        left(right)
+        right(left)
+        return
+
     # check current left node against the end node and its parents
     right_node = end
     while right_node != None:
@@ -67,7 +73,7 @@ def printer(start_article):
     total_articles = 1
     
     # keeps printing as long as there's children
-    while current.child is not None:
+    while current.child is not None and current.child is not start_article:
         current = current.child
         print(current.title)
         total_articles += 1
