@@ -25,8 +25,8 @@ async def api_forwardlinks(article_title):
     for id in page:
         for article in page[id]['links']:
             title = article['title']
-            # skips wiki, category, help, and user articles
-            if not (title.startswith("Wikipedia:") or title.startswith("Category:") or title.startswith("Help:") or title.startswith("User:") or title.startswith("User talk:") or title.startswith("Talk:") or title.startswith("Template:") or title.endswith("(disambiguation)")):
+            # skips wiki, category, help, user articles, among other things
+            if not (title.startswith("Wikipedia:") or title.startswith("Category:") or title.startswith("Help:") or title.startswith("User:") or title.startswith("User talk:") or title.startswith("Talk:") or title.startswith("Template:") or title.startswith("Portal:") or title.endswith("(disambiguation)")):
                 links.append(title)
 
     return links
