@@ -7,6 +7,22 @@ headers = {
 'From' : 'cdtv1473@gmail.com'
 }
 
+
+def skippable(title):
+    skip_list_start = [ 'Wikipedia:', 'Category:', 'Help:', 'User:', 'User talk:', 'Talk:', 'Template:', 'Wikipedia talk:', ]
+    skip_list_end = ['(disambiguation)']
+    
+    for item in skip_list_start:
+        if title.startswith(item):
+            return True
+
+    for item in skip_list_end:
+        if title.endswith(item):
+            return True
+    
+    return False
+
+
 def api_forwardlinks(article_title):
     """Gets the forwardlinks for an article, for use on left nodes
 
@@ -26,8 +42,9 @@ def api_forwardlinks(article_title):
             for article in page[id]['links']:
                 title = article['title']
                 # skips wiki, category, help, and user articles
-                if not (title.startswith("Wikipedia:") or title.startswith("Category:") or title.startswith("Help:") or title.startswith("User:") or title.startswith("User talk:") or title.startswith("Talk:") or title.startswith("Template:") or title.endswith("(disambiguation)")):
-                    links.append(title)
+                if skippable(title):
+                    continue
+                links.append(title)
     # early error
     else:
         exit(f"\n{article_title} does not have any forwardlinks")
