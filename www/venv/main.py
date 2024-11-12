@@ -1,6 +1,5 @@
 import asyncio
 import sys
-from time import time
 
 from Article import *
 
@@ -14,7 +13,7 @@ async def solve(left, right):
 
     # check current left node against the end node and its parents
     r = end
-    while r != None:
+    while r is not None:
         for item in left.links:
             if item in r.links:
                 new = Article(item)
@@ -25,7 +24,7 @@ async def solve(left, right):
     
     # check current right node against the start node and it's children
     l = start
-    while l != None:
+    while l is not None:
         for item in right.links:
             if item in l.links:
                 new = Article(item)

@@ -1,10 +1,10 @@
-from random import random, sample
-
+from random import sample
+import asyncio
 from wiki_api import *
 
 
 # accepts wiki links or article names formatted the same way as wiki-links
-class Article():
+class Article:
     def __init__(self, title):
         self.title = title
         self.format_title() # if title is in link format, this fixes it
@@ -45,10 +45,10 @@ class Article():
         # if there isn't a valid forwarlink or backlink, print error message and exit
         if len(self.links) == 0:
             asyncio.set_event_loop(asyncio.ProactorEventLoop())
-            if self.parent == None:
+            if self.parent is None:
                 # Exception(f"\n'{self.title}' has no valid backlinks, try a different set of links")
                 exit(f"\n'{self.title}' has no valid backlinks, try a different set of links")
-            elif self.child == None:
+            elif self.child is None:
                 exit(f"\n'{self.title}' has no valid forwardlinks, try a different set of links")
             else:
                 exit(f"\n'{self.title}' has no valid links, try a different set of links")
@@ -66,10 +66,10 @@ class Article():
         random_links = sample(self.links, sample_size)
 
         # the first article won't have a parent or child
-        if self.child != None and self.parent != None:
+        if self.child is not None and self.parent is not None:
             # if the previous article was included, skip it 
             # keeps it from getting 'stuck' on a popular article
-            if (self.child.title != self.title and self.parent == None) or (self.parent.title != self.title and self.child == None):
+            if (self.child.title != self.title and self.parent is None) or (self.parent.title != self.title and self.child is None):
                 random_links.append(self.title)
         
         return random_links

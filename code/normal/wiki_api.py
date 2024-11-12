@@ -1,4 +1,5 @@
 import json
+
 import requests
 
 # wiki-api likes their headers
@@ -38,8 +39,8 @@ def api_forwardlinks(article_title):
     page = _page_obj(json_object)
 
     if list(page.keys())[0] != "-1":
-        for id in page:
-            for article in page[id]['links']:
+        for page_id in page:
+            for article in page[page_id]['links']:
                 title = article['title']
                 # skips wiki, category, help, and user articles
                 if skippable(title):
@@ -68,9 +69,9 @@ def api_backlinks(article_title):
     api="https://en.wikipedia.org/w/api.php?action=query&prop=linkshere&lhlimit=max&format=json&titles=" + article_title
     json_object = _request_json(api)
     page = _page_obj(json_object)
-    for id in page:
-        if 'linkshere' in page[id].keys():
-            for article in page[id]['linkshere']:
+    for page_id in page:
+        if 'linkshere' in page[page_id].keys():
+            for article in page[page_id]['linkshere']:
                 title = article['title']
                 # skips wiki, category, help, and user articles
                 if not (title.startswith("Wikipedia:") or title.startswith("Category:") or title.startswith("Help:") or title.startswith("User:") or title.startswith("User talk:") or title.startswith("Talk:") or title.startswith("Template:") or title.endswith("(disambiguation)")):
@@ -86,7 +87,7 @@ def api_backlinks(article_title):
     return links
 
 def api_views(article_list):
-    """Gets pageviews from the last 60 days for a list of 50 or less articles
+    """Gets pageviews from the last 60 days for a list of 50 articles or fewer
 
     Args:
         article_list (list): a list of article titles
@@ -105,15 +106,15 @@ def api_views(article_list):
     
     page = _page_obj(json_object)
     
-    for id in page:
-        title = page[id]['title']
-        pageviews = page[id]['pageviews']
+    for page_id in page:
+        title = page[page_id]['title']
+        pageviews = page[page_id]['pageviews']
         total_views = 0
-        # pagevies are separated by day, summed here
+        # pageviews are separated by day, summed here
         for date in pageviews:
             daily_views = pageviews[date]
             
-            if daily_views == None:
+            if daily_views is None:
                 total_views += 0
             else:
                 total_views += daily_views
@@ -134,7 +135,7 @@ def _request_json(api_call):
     response = requests.get(api_call, headers=headers)
     content = response.text
     print(".", flush = True, end = "")
-    return(json.loads(content))
+    return json.loads(content)
 
 
 # also here for cleaner code
@@ -148,4 +149,4 @@ def _page_obj(json_object):
         dict: json object for the 'pages' of an article
     """
     query_object = json_object['query']
-    return(query_object['pages'])
+    return query_object['pages']

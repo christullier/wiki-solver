@@ -1,9 +1,10 @@
-from random import random, sample
+from random import sample
 
 from wiki_api import *
 
+
 # accepts wiki links or article names formatted the same way as wiki-links
-class Article():
+class Article:
     def __init__(self, title):
         self.title = title
         self.format_title() # if title is in link format, this fixes it
@@ -13,14 +14,15 @@ class Article():
 
         self.views_dict = None # stores views information in this format: {title : views} 
          
-        self.links = [] # forwarlinks or backlinks go here depending on solver() in main.py
+        self.links = [] # forwardlinks or backlinks go here depending on solver() in main.py
     
     # links parent to child and vice versa (used in solver())
     def __call__(self, other):
         self.child = other
         other.parent = self
 
-    # formats title if it's a url
+    # formats title if it is a URL
+    # He goes to a university
     def format_title(self):
         if self.title.startswith("https://") or self.title.startswith("en.wikipedia.org"):
             self.title = self.title.rsplit('/', 1)[-1]
@@ -37,11 +39,11 @@ class Article():
         random_links = self._random_links()
         self.views_dict = await api_views(random_links)
 
-        # if there isn't a valid forwarlink or backlink, print error message and exit
+        # if there isn't a valid forwardlink or backlink, print error message and exit
         if len(self.views_dict) == 0:
-            if self.parent == None:
+            if self.parent is None:
                 print (f"\n'{self.title}' has no valid backlinks, try a different set of links")
-            elif self.child == None:
+            elif self.child is None:
                 print (f"\n'{self.title}' has no valid forwardlinks, try a different set of links")
             else:
                 print (f"\n'{self.title}' has no valid links, try a different set of links")
@@ -58,10 +60,10 @@ class Article():
         random_links = sample(self.links, sample_size)
 
         # the first article won't have a parent or child
-        if self.child != None and self.parent != None:
+        if self.child is not None and self.parent is not None:
             # if the previous article was included, skip it 
             # keeps it from getting 'stuck' on a popular article
-            if (self.child.title != self.title and self.parent == None) or (self.parent.title != self.title and self.child == None):
+            if (self.child.title != self.title and self.parent is None) or (self.parent.title != self.title and self.child is None):
                 random_links.append(self.title)
         
         return random_links

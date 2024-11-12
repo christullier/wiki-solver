@@ -1,7 +1,5 @@
-import asyncio
 import sys
-from time import time
-
+import asyncio
 from Article import *
 
 

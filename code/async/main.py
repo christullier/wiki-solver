@@ -1,4 +1,3 @@
-import asyncio
 import sys
 from time import time
 

@@ -1,7 +1,5 @@
-import asyncio
 import sys
-from time import time
-
+import asyncio
 from Article import *
 
 
@@ -14,7 +12,7 @@ async def solve(left, right):
 
     # check current left node against the end node and its parents
     r = end
-    while r != None:
+    while r is not None:
         for item in left.links:
             if item in r.links:
                 new = Article(item)
@@ -25,7 +23,7 @@ async def solve(left, right):
     
     # check current right node against the start node and it's children
     l = start
-    while l != None:
+    while l is not None:
         for item in right.links:
             if item in l.links:
                 new = Article(item)
@@ -41,10 +39,10 @@ async def solve(left, right):
 
     left.child = Article(left.best_link())
     right.parent = Article(right.best_link())
-    
+
     left(left.child) # callable that links parent(child)
     right.parent(right) # right is the child in this case because we're using backlinks
-    
+
     sys.stdout.write("\033[F")
 
     print()
@@ -117,9 +115,7 @@ async def bot_main(article1, article2):
     start = Article(article1)
     end = Article(article2)
 
-    (
     await solve(start, end)
-    )
     tot_articles, art_list = printer(start)
     # print(art_list)
     str_output = " -> ".join(art_list)
